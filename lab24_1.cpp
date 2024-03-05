@@ -62,5 +62,32 @@ void List::append(int d){
 	}
 	size++;
 }
+void List::remove(int position) {
+        if (position < 0 || root == nullptr) {
+            cout << "Invalid position or list is empty." << endl;
+            return;
+        }
 
-//Write List::remove() here
+        if (position == 0) {
+            Node *temp = root;
+            root = root->next;
+            delete temp;
+            return;
+        }
+
+        Node *temp = root;
+        int count = 0;
+
+        while (temp->next != nullptr && count < position - 1) {
+            temp = temp->next;
+            count++;
+        }
+		if (temp->next == nullptr || temp->next->next == nullptr) {
+            cout << "Invalid position." << endl;
+            return;
+        }
+
+        Node *toBeDeleted = temp->next;
+        temp->next = temp->next->next;
+        delete toBeDeleted;
+}
